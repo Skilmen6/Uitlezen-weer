@@ -1,5 +1,6 @@
 <?php
 // URL van de API
+
 $prefix = 'http://api.openweathermap.org/data/2.5/weather?q=';
 // De stad waar je het weer van wilt hebben
 $city = 'Leusden';
