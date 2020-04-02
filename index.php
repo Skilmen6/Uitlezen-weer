@@ -17,7 +17,7 @@ include("config.php");
 
 if(isset($_POST['fetch'])){
 
-    $jsonData = file_get_contents("http://api.openweathermap.org/data/2.5/weather?q=Leusden&appid=8363c7ae7b5a1a90c53bb76eda802728");
+    $jsonData = file_get_contents("http://api.openweathermap.org/data/2.5/weather?q=Leusden&appid=8363c7ae7b5a1a90c53bb76eda802728&units=metric&lang=nl");
 
     if($jsonData == null){
         die("<br>Probleem met API, probeer het later opnieuw !");
@@ -28,9 +28,9 @@ if(isset($_POST['fetch'])){
 
     $lon        = $dataArray['coord']['lon'];
     $lat        = $dataArray['coord']['lat'];
-    $weather    = json_encode(array("main" => $dataArray['weather'][0]['main'], "description" =>  $dataArray['weather'][0]['description']));
-    $temp       = json_encode($dataArray['main']);
-    $wind       = json_encode($dataArray['wind']);
+    $weather    = $dataArray['weather']['0']['description'];
+    $temp       = $dataArray['main']['temp'];
+    $wind       = $dataArray['wind']['speed'];
     $clouds     = $dataArray['clouds']['all'];
     $visibility = $dataArray['visibility'];
     $name       = $dataArray['name'];
@@ -93,7 +93,7 @@ if(isset($_POST['fetch'])){
                     if(mysqli_query($con,$updateSql)){
 
                         echo "<br>Data Is Bijgewerkt";
-                    }                
+                    }
                     else{
                         echo "<br/>Bijwerken is niet gelukt: " . mysqli_error($con);
                     }
