@@ -29,7 +29,9 @@ if(isset($_POST['fetch'])){
     $lon        = $dataArray['coord']['lon'];
     $lat        = $dataArray['coord']['lat'];
     $weather    = $dataArray['weather']['0']['description'];
+    $feelslike  = $dataArray['main']['feels_like'];
     $temp       = $dataArray['main']['temp'];
+    $humidity   = $dataArray['main']['humidity'];
     $wind       = $dataArray['wind']['speed'];
     $clouds     = $dataArray['clouds']['all'];
     $visibility = $dataArray['visibility'];
@@ -42,7 +44,9 @@ if(isset($_POST['fetch'])){
                             lon,
                             lat,
                             weather,
+                            feelslike,
                             temp,
+                            humidity,
                             wind,
                             clouds,
                             visibility,
@@ -56,7 +60,9 @@ if(isset($_POST['fetch'])){
                             '".$lon."',
                             '".$lat."',
                             '".$weather."',
+                            '".$feelslike."',
                             '".$temp."',
+                            '".$humidity."',
                             '".$wind."',
                             '".$clouds."',
                             '".$visibility."',
