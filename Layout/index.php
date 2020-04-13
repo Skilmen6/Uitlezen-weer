@@ -18,6 +18,7 @@ $mysqli->set_charset("utf8mb4");
 
 //variablen
 $rows = null;
+$rowsChart = null;
 
 //sql query
 $sql = "SELECT * FROM `records`";
@@ -26,19 +27,16 @@ $result = $mysqli->query($sql);
 //loop door alle rijen en weergeef ze als table
 while($row = $result->fetch_assoc()) {
     $rows .= "<tr>";
-    $rows .= sprintf("<td>%s</td>",$row['lon']);
-    $rows .= sprintf("<td>%s</td>",$row['lat']);
     $rows .= sprintf("<td>%s</td>",$row['weather']);
     $rows .= sprintf("<td>%s</td>",$row['feelslike']);
     $rows .= sprintf("<td>%s</td>",$row['temp']);
     $rows .= sprintf("<td>%s</td>",$row['humidity']);
-    $rows .= sprintf("<td>%s</td>",$row['wind']);
-    $rows .= sprintf("<td>%s</td>",$row['clouds']);
-    $rows .= sprintf("<td>%s</td>",$row['visibility']);
-    $rows .= sprintf("<td>%s</td>",$row['sunrise']);
-    $rows .= sprintf("<td>%s</td>",$row['sunset']);
     $rows .= sprintf("<td>%s</td>",$row['created']);
+    $rows .= sprintf("<td>%s</td>",$row['time']);
     $rows .= "</tr>";
+
+    //voeg data toe aan de tabel
+    $rowsChart .= "['".$row{'time'}."',".$row{'temp'}.",".$row{'feelslike'}."],";
 }
 ?>
 
@@ -47,25 +45,52 @@ while($row = $result->fetch_assoc()) {
 <head>
     <title>Uitlezen van het weer</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart(){
+            var data = new google.visualization.DataTable();
+            var data = google.visualization.arrayToDataTable([
+                ['Tijd', 'Temperatuur', 'Gevoelstemperatuur'],
+                <?=$rowsChart?>
+            ]);
+
+            var options = {
+                title: 'De temperatuur van vandaag',
+                legend: { position: 'bottom' },
+                hAxis: {
+                    title: 'Tijd'
+                },
+                vAxis: {
+                    title: 'Temperatuur'
+                },
+                width: 900,
+                height: 500,
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('tempchart'));
+            chart.draw(data, options);
+        }
+    </script>
 </head>
 
 <body>
-    <table>
+    <div id="container">
+        <table>
         <tr>
-            <th>lon ofzo?</th>
-            <th>lat ofzo</th>
-            <th>weer</th>
-            <th>Voelt alsof??? xd</th>
+            <th>Weer</th>
+            <th>Gevoelstemperatuur</th>
             <th>Temperatuur</th>
             <th>Vochtigheid</th>
-            <th>Wind</th>
-            <th>Wolken</th>
-            <th>Zichtbaarheid</th>
-            <th>Zonsopgang</th>
-            <th>Zonsondergang</th>
             <th>Datum aangemaakt</th>
+            <th>Tijd aangemaakt</th>
         </tr>
         <?=$rows?>
-    </table>
+        </table>
+        <div id="tempchart"></div>
+    </div>
+    
 </body>
 </html>
