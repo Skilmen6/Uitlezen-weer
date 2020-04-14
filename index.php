@@ -15,15 +15,15 @@ error_reporting(false);
 
 include("config.php");
 
-if(isset($_POST['fetch'])){
-
+if (isset($_POST['fetch'])) {
     $jsonData = file_get_contents("http://api.openweathermap.org/data/2.5/weather?q=Leusden&appid=8363c7ae7b5a1a90c53bb76eda802728&units=metric&lang=nl");
-
-    if($jsonData == null){
+    $time = date("H:i:s");
+    $date = date("Y-m-d");
+    if ($jsonData == null) {
         die("<br>Probleem met API, probeer het later opnieuw !");
     }
 
-    $dataArray = json_decode($jsonData,true);
+    $dataArray = json_decode($jsonData, true);
 
 
     $lon        = $dataArray['coord']['lon'];
@@ -37,9 +37,9 @@ if(isset($_POST['fetch'])){
     $visibility = $dataArray['visibility'];
     $name       = $dataArray['name'];
     $country    = $dataArray['sys']['country'];
-    $sunrise    = $dataArray['sys']['sunrise']; 
-    $sunset     = $dataArray['sys']['sunset']; 
-    
+    $sunrise    = $dataArray['sys']['sunrise'];
+    $sunset     = $dataArray['sys']['sunset'];
+
     $sql = "INSERT INTO records (
                             lon,
                             lat,
@@ -53,7 +53,9 @@ if(isset($_POST['fetch'])){
                             name,
                             country,
                             sunrise,
-                            sunset
+                            sunset,
+                            `date`,
+                            `time`
 
                         ) VALUES (
 
@@ -69,18 +71,18 @@ if(isset($_POST['fetch'])){
                             '".$name."',
                             '".$country."',
                             '".$sunrise."',
-                            '".$sunset."'
+                            '".$sunset."',
+                            '".$date."',
+                            '".$time."'
 
                         )";
-        
-        if(mysqli_query($con,$sql)){
-            echo "<br> Data is succesvol bijgewerkt";
-        }
-        else{
-                // Controleren op dublicatie
-                if(mysqli_errno($con) == 1062){
 
-                    $updateSql = "UPDATE records SET
+    if (mysqli_query($con, $sql)) {
+        echo "<br> Data is succesvol bijgewerkt";
+    } else {
+        // Controleren op dublicatie
+        if (mysqli_errno($con) == 1062) {
+            $updateSql = "UPDATE records SET
                                 lon = '".$lon."',
                                 lat = '".$lat."',
                                 weather = '".$weather."' ,
@@ -91,26 +93,22 @@ if(isset($_POST['fetch'])){
                                 name = '".$name."',
                                 country = '".$country."',
                                 sunrise = '".$sunrise."',
-                                sunset = '".$sunset."'
+                                sunset = '".$sunset."',
+                                `date` = '".$date."',
+                                `time` = '".$time."'
 
-                                WHERE lon = '".$lon."' AND lat = '".$lat."' AND name = '".$name."'  
+                                WHERE lon = '".$lon."' AND lat = '".$lat."' AND name = '".$name."'
                                     ";
 
-                    if(mysqli_query($con,$updateSql)){
-
-                        echo "<br>Data Is Bijgewerkt";
-                    }
-                    else{
-                        echo "<br/>Bijwerken is niet gelukt: " . mysqli_error($con);
-                    }
-
-                }
-                else{
-
-                    echo "<br/>Data invoegen is niet gelukt: " . mysqli_error($con);
-                }
+            if (mysqli_query($con, $updateSql)) {
+                echo "<br>Data Is Bijgewerkt";
+            } else {
+                echo "<br/>Bijwerken is niet gelukt: " . mysqli_error($con);
             }
-        
+        } else {
+            echo "<br/>Data invoegen is niet gelukt: " . mysqli_error($con);
+        }
+    }
 }
 
 ?>
