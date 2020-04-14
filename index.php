@@ -81,33 +81,7 @@ if (isset($_POST['fetch'])) {
         echo "<br> Data is succesvol bijgewerkt";
     } else {
         // Controleren op dublicatie
-        if (mysqli_errno($con) == 1062) {
-            $updateSql = "UPDATE records SET
-                                lon = '".$lon."',
-                                lat = '".$lat."',
-                                weather = '".$weather."' ,
-                                temp = '".$temp."',
-                                wind = '".$wind."',
-                                clouds = '".$clouds."',
-                                visibility = '".$visibility."',
-                                name = '".$name."',
-                                country = '".$country."',
-                                sunrise = '".$sunrise."',
-                                sunset = '".$sunset."',
-                                `date` = '".$date."',
-                                `time` = '".$time."'
-
-                                WHERE lon = '".$lon."' AND lat = '".$lat."' AND name = '".$name."'
-                                    ";
-
-            if (mysqli_query($con, $updateSql)) {
-                echo "<br>Data Is Bijgewerkt";
-            } else {
-                echo "<br/>Bijwerken is niet gelukt: " . mysqli_error($con);
-            }
-        } else {
-            echo "<br/>Data invoegen is niet gelukt: " . mysqli_error($con);
-        }
+        echo "<br/>Data invoegen is niet gelukt: " . mysqli_error($con);
     }
 }
 

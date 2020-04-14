@@ -1,13 +1,13 @@
 <?php
     $servername = "localhost";
-    $username = "school";
-    $password = "school";
+    $username = "root";
+    $password = "";
     $database = "weather_db";
 ?>
 
 <?php
 //create connection;
-$mysqli = new mysqli($servername, $username, $password,$database);
+$mysqli = new mysqli($servername, $username, $password, $database);
 
 //check connection
 if ($mysqli->connect_error) {
@@ -25,14 +25,14 @@ $sql = "SELECT * FROM `records`";
 $result = $mysqli->query($sql);
 
 //loop door alle rijen en weergeef ze als table
-while($row = $result->fetch_assoc()) {
+while ($row = $result->fetch_assoc()) {
     $rows .= "<tr>";
-    $rows .= sprintf("<td>%s</td>",$row['weather']);
-    $rows .= sprintf("<td>%s</td>",$row['feelslike']);
-    $rows .= sprintf("<td>%s</td>",$row['temp']);
-    $rows .= sprintf("<td>%s</td>",$row['humidity']);
-    $rows .= sprintf("<td>%s</td>",$row['created']);
-    $rows .= sprintf("<td>%s</td>",$row['time']);
+    $rows .= sprintf("<td>%s</td>", $row['weather']);
+    $rows .= sprintf("<td>%s</td>", $row['feelslike']);
+    $rows .= sprintf("<td>%s</td>", $row['temp']);
+    $rows .= sprintf("<td>%s</td>", $row['humidity']);
+    $rows .= sprintf("<td>%s</td>", $row['date']);
+    $rows .= sprintf("<td>%s</td>", $row['time']);
     $rows .= "</tr>";
 
     //voeg data toe aan de tabel
@@ -91,6 +91,6 @@ while($row = $result->fetch_assoc()) {
         </table>
         <div id="tempchart"></div>
     </div>
-    
+
 </body>
 </html>
