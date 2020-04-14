@@ -17,6 +17,7 @@ include("config.php");
 
 if (isset($_POST['fetch'])) {
     $jsonData = file_get_contents("http://api.openweathermap.org/data/2.5/weather?q=Leusden&appid=8363c7ae7b5a1a90c53bb76eda802728&units=metric&lang=nl");
+    date_default_timezone_set("Europe/Amsterdam");
     $time = date("H:i:s");
     $date = date("Y-m-d");
     if ($jsonData == null) {
@@ -40,7 +41,7 @@ if (isset($_POST['fetch'])) {
     $sunrise    = $dataArray['sys']['sunrise'];
     $sunset     = $dataArray['sys']['sunset'];
 
-    $sql = "INSERT INTO records (
+    $sql = "INSERT INTO uitlezen_weer_records (
                             lon,
                             lat,
                             weather,

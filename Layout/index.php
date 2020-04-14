@@ -1,11 +1,12 @@
 <?php
     $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "weather_db";
+    $username = "student4a8_509704";
+    $password = "oD5cPz";
+    $database = "student4a8_509704";
 ?>
 
 <?php
+include("config.php");
 //create connection;
 $mysqli = new mysqli($servername, $username, $password, $database);
 
@@ -21,7 +22,7 @@ $rows = null;
 $rowsChart = null;
 
 //sql query
-$sql = "SELECT * FROM `records`";
+$sql = "SELECT * FROM `uitlezen_weer_records`";
 $result = $mysqli->query($sql);
 
 //loop door alle rijen en weergeef ze als table

@@ -1,14 +1,13 @@
 <?php
 
 $dbHost = "localhost";
-$dbUser = "root";
-$dbPass = "";
-$dbName = "weather_db";
+$dbUser = "student4a8_509704";
+$dbPass = "oD5cPz";
+$dbName = "student4a8_509704";
 
-$con = mysqli_connect($dbHost,$dbUser,$dbPass,$dbName);
+$con = mysqli_connect($dbHost, $dbUser, $dbPass, $dbName);
 
-if(!$con){
+if (!$con) {
     die("Error Establishing Database Connection");
     exit();
 }
-?>
