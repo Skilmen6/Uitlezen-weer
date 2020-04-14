@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2020 at 02:00 PM
+-- Generation Time: Apr 14, 2020 at 02:17 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -43,7 +43,7 @@ CREATE TABLE `records` (
   `country` varchar(5) NOT NULL,
   `sunrise` bigint(20) NOT NULL,
   `sunset` bigint(20) NOT NULL,
-  `date` date DEFAULT NULL,
+  `date` date NOT NULL,
   `time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -52,7 +52,10 @@ CREATE TABLE `records` (
 --
 
 INSERT INTO `records` (`record_id`, `lon`, `lat`, `weather`, `feelslike`, `temp`, `humidity`, `wind`, `clouds`, `visibility`, `name`, `country`, `sunrise`, `sunset`, `date`, `time`) VALUES
-(94, 5.43, 52.13, 'geheel bewolkt', '4.27', '8.94', '49', '3.6', '90', 10000, 'Leusden', 'NL', 1586839352, 1586889238, '2020-04-14', '13:59:53');
+(1, 5.43, 52.13, 'geheel bewolkt', '4.32', '8.99', '49', '3.6', '90', 10000, 'Leusden', 'NL', 1586839352, 1586889238, '2020-04-14', '14:17:18'),
+(2, 5.43, 52.13, 'geheel bewolkt', '4.32', '8.99', '49', '3.6', '90', 10000, 'Leusden', 'NL', 1586839352, 1586889238, '2020-04-14', '14:17:19'),
+(3, 5.43, 52.13, 'geheel bewolkt', '4.32', '8.99', '49', '3.6', '90', 10000, 'Leusden', 'NL', 1586839352, 1586889238, '2020-04-14', '14:17:20'),
+(4, 5.43, 52.13, 'geheel bewolkt', '4.32', '8.99', '49', '3.6', '90', 10000, 'Leusden', 'NL', 1586839352, 1586889238, '2020-04-14', '14:17:21');
 
 --
 -- Indexes for dumped tables
@@ -62,8 +65,7 @@ INSERT INTO `records` (`record_id`, `lon`, `lat`, `weather`, `feelslike`, `temp`
 -- Indexes for table `records`
 --
 ALTER TABLE `records`
-  ADD PRIMARY KEY (`record_id`),
-  ADD UNIQUE KEY `weather` (`temp`,`wind`,`clouds`,`visibility`,`country`,`sunrise`,`sunset`) USING BTREE;
+  ADD PRIMARY KEY (`record_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -73,7 +75,7 @@ ALTER TABLE `records`
 -- AUTO_INCREMENT for table `records`
 --
 ALTER TABLE `records`
-  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
