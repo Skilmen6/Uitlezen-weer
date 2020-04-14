@@ -32,6 +32,10 @@ while ($row = $result->fetch_assoc()) {
     $rows .= sprintf("<td>%s</td>", $row['feelslike']);
     $rows .= sprintf("<td>%s</td>", $row['temp']);
     $rows .= sprintf("<td>%s</td>", $row['humidity']);
+    $rows .= sprintf("<td>%s</td>", $row['pressure']);
+    $rows .= sprintf("<td>%s</td>", $row['min_temp']);
+    $rows .= sprintf("<td>%s</td>", $row['max_temp']);
+    $rows .= sprintf("<td>%s</td>", $row['wind_direction']);
     $rows .= sprintf("<td>%s</td>", $row['date']);
     $rows .= sprintf("<td>%s</td>", $row['time']);
     $rows .= "</tr>";
@@ -85,6 +89,10 @@ while ($row = $result->fetch_assoc()) {
             <th>Gevoelstemperatuur</th>
             <th>Temperatuur</th>
             <th>Vochtigheid</th>
+            <th>Luchtdruk</th>
+            <th>Minimale Temperatuur</th>
+            <th>Maximale Temperatuur</th>
+            <th>Windrichting</th>
             <th>Datum aangemaakt</th>
             <th>Tijd aangemaakt</th>
         </tr>
