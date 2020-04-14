@@ -1,13 +1,14 @@
 <?php
 
-$dbHost = "localhost";
-$dbUser = "student4a8_509704";
-$dbPass = "oD5cPz";
-$dbName = "student4a8_509704";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "weather_db";
 
-$con = mysqli_connect($dbHost, $dbUser, $dbPass, $dbName);
+$mysqli = new mysqli($servername, $username, $password, $database);
 
-if (!$con) {
-    die("Error Establishing Database Connection");
-    exit();
+if ($mysqli->connect_error) {
+    exit("Connection failed: " . $mysqli->connect_error);
 }
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+$mysqli->set_charset("utf8mb4");

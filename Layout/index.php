@@ -1,21 +1,5 @@
 <?php
-    $servername = "localhost";
-    $username = "student4a8_509704";
-    $password = "oD5cPz";
-    $database = "student4a8_509704";
-?>
-
-<?php
-include("config.php");
-//create connection;
-$mysqli = new mysqli($servername, $username, $password, $database);
-
-//check connection
-if ($mysqli->connect_error) {
-    exit("Connection failed: " . $mysqli->connect_error);
-}
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-$mysqli->set_charset("utf8mb4");
+include("../config.php");
 
 //variablen
 $rows = null;

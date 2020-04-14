@@ -32,14 +32,17 @@ if (isset($_POST['fetch'])) {
     $weather    = $dataArray['weather']['0']['description'];
     $feelslike  = $dataArray['main']['feels_like'];
     $temp       = $dataArray['main']['temp'];
+    $min_temp   = $dataArray['main']['temp_min'];
+    $max_temp   = $dataArray['main']['temp_max'];
+    $pressure   = $dataArray['main']['pressure'];
     $humidity   = $dataArray['main']['humidity'];
     $wind       = $dataArray['wind']['speed'];
     $clouds     = $dataArray['clouds']['all'];
     $visibility = $dataArray['visibility'];
     $name       = $dataArray['name'];
     $country    = $dataArray['sys']['country'];
-    $sunrise    = $dataArray['sys']['sunrise'];
-    $sunset     = $dataArray['sys']['sunset'];
+    $sunrise    = date("H:i:s", $dataArray['sys']['sunrise']);
+    $sunset     = date("H:i:s", $dataArray['sys']['sunset']);
 
     $sql = "INSERT INTO uitlezen_weer_records (
                             lon,
@@ -47,6 +50,9 @@ if (isset($_POST['fetch'])) {
                             weather,
                             feelslike,
                             temp,
+                            min_temp,
+                            max_temp,
+                            pressure,
                             humidity,
                             wind,
                             clouds,
@@ -65,6 +71,9 @@ if (isset($_POST['fetch'])) {
                             '".$weather."',
                             '".$feelslike."',
                             '".$temp."',
+                            '".$min_temp."',
+                            '".$max_temp."',
+                            '".$pressure."',
                             '".$humidity."',
                             '".$wind."',
                             '".$clouds."',
@@ -77,12 +86,10 @@ if (isset($_POST['fetch'])) {
                             '".$time."'
 
                         )";
-
-    if (mysqli_query($con, $sql)) {
+    if ($mysqli->query($sql)) {
         echo "<br> Data is succesvol bijgewerkt";
     } else {
-        // Controleren op dublicatie
-        echo "<br/>Data invoegen is niet gelukt: " . mysqli_error($con);
+        echo "<br>Data invoegen is niet gelukt: " . $mysqli->error;
     }
 }
 
